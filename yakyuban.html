@@ -6,12 +6,14 @@
 	<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 	<script src="Ground.js"></script>
 	<script src="Ball.js"></script>
+	<script src="Pitcher.js"></script>
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 
 	<script>
 		let stage // 絶対init内でinitizalizeする
 		let ball
 		let ground
+		let pitcher
 
 		function init() {
 
@@ -31,12 +33,14 @@
 					src: "assets/head.png"
 				}
 			])
-
 			stage = new createjs.Stage("Canvas")
 			stage.addEventListener("stagemousedown", function(event) {
 				ball.throw(250, 250, 250, 600)
 			})
+
 			createjs.Ticker.addEventListener("tick", stage)
+
+			pitcher = new Pitcher()
 
 			ground = stage.addChild(new Ground())
 			ground.x = 250
@@ -51,6 +55,12 @@
 				case "ball":
 					let bitmap = new createjs.Bitmap(event.result) //Bitmapに変換する
 					ball = stage.addChild(new Ball(bitmap))
+					break
+				case "head":
+					pitcher.headBitmap = new createjs.Bitmap(event.result)
+					break
+				case "body":
+					pitcher.bodyBitmap = new createjs.Bitmap(event.result)
 					break
 			}
 		}

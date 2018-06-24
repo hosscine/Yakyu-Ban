@@ -1,10 +1,10 @@
 (function() {
 
-  function Pitcher(bitmap) {
-    this.bitmap = bitmap
+  function Pitcher() {
+    this.headBitmap
+    this.bodyBitmap
 
     this.Container_constructor()
-    this.setup()
   }
   var p = createjs.extend(Pitcher, createjs.Container)
 
