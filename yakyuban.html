@@ -11,11 +11,10 @@
 	<script>
 		let stage // 絶対init内でinitizalizeする
 		let ball
-		let queue
 
 		function init() {
 
-			queue = new createjs.LoadQueue(false)
+			let queue = new createjs.LoadQueue(false)
 			queue.addEventListener("fileload", handleFileLoad)
 			queue.addEventListener("complete", handleComplete)
 			queue.loadFile("assets/ball.png")
