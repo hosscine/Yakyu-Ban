@@ -11,13 +11,26 @@
 	<script>
 		let stage // 絶対init内でinitizalizeする
 		let ball
+		let ground
 
 		function init() {
 
 			let queue = new createjs.LoadQueue(false)
 			queue.addEventListener("fileload", handleFileLoad)
 			queue.addEventListener("complete", handleComplete)
-			queue.loadFile("assets/ball.png")
+			queue.loadManifest([{
+					id: "ball",
+					src: "assets/ball.png"
+				},
+				{
+					id: "head",
+					src: "assets/head.png"
+				},
+				{
+					id: "body",
+					src: "assets/head.png"
+				}
+			])
 
 			stage = new createjs.Stage("Canvas")
 			stage.addEventListener("stagemousedown", function(event) {
@@ -25,7 +38,7 @@
 			})
 			createjs.Ticker.addEventListener("tick", stage)
 
-			let ground = stage.addChild(new Ground())
+			ground = stage.addChild(new Ground())
 			ground.x = 250
 			ground.y = 450
 			ground.scaleX = ground.scaleY = 0.7
@@ -34,8 +47,12 @@
 		}
 
 		function handleFileLoad(event) {
-			let bitmap = new createjs.Bitmap(event.result) //Bitmapに変換する
-			ball = stage.addChild(new Ball(bitmap))
+			switch (event.item.id) {
+				case "ball":
+					let bitmap = new createjs.Bitmap(event.result) //Bitmapに変換する
+					ball = stage.addChild(new Ball(bitmap))
+					break
+			}
 		}
 
 		function handleComplete(event) {
