@@ -53,8 +53,8 @@
 		function handleFileLoad(event) {
 			switch (event.item.id) {
 				case "ball":
-					let bitmap = new createjs.Bitmap(event.result) //Bitmapに変換する
-					ball = stage.addChild(new Ball(bitmap))
+					ball = new Ball(new createjs.Bitmap(event.result)) //Bitmapに変換する
+					stage.addChild(ball)
 					break
 				case "head":
 					pitcher.headBitmap = new createjs.Bitmap(event.result)

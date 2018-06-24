@@ -9,10 +9,10 @@
   var p = createjs.extend(Pitcher, createjs.Container)
 
   p.setup = function() {
-    this.bitmap.scaleX = this.bitmap.scaleY = 1 / 10
+    this.ballBitmap.scaleX = this.ballBitmap.scaleY = 1 / 10
     this.visible = false
 
-    this.addChild(this.bitmap)
+    this.addChild(this.ballBitmap)
 
     this.regX = this.getBounds().width / 2 // addChild後にgetBoundsする
     this.regY = this.getBounds().height / 2
