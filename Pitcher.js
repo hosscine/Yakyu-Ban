@@ -1,6 +1,6 @@
 (function() {
 
-  function Pitcher() {
+  function Pitcher(headBitmap, bodyBitmap) {
     this.headBitmap
     this.bodyBitmap
 

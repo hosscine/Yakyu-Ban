@@ -14,10 +14,11 @@
 		let ball
 		let ground
 		let pitcher
+		let queue
 
 		function init() {
 
-			let queue = new createjs.LoadQueue(false)
+			queue = new createjs.LoadQueue(false)
 			queue.addEventListener("fileload", handleFileLoad)
 			queue.addEventListener("complete", handleComplete)
 			queue.loadManifest([{
@@ -40,8 +41,6 @@
 
 			createjs.Ticker.addEventListener("tick", stage)
 
-			pitcher = new Pitcher()
-
 			ground = stage.addChild(new Ground())
 			ground.x = 250
 			ground.y = 450
@@ -56,16 +55,16 @@
 					ball = new Ball(new createjs.Bitmap(event.result)) //Bitmapに変換する
 					stage.addChild(ball)
 					break
-				case "head":
-					pitcher.headBitmap = new createjs.Bitmap(event.result)
-					break
-				case "body":
-					pitcher.bodyBitmap = new createjs.Bitmap(event.result)
-					break
 			}
 		}
 
 		function handleComplete(event) {
+			pitcher = new Pitcher(
+				new createjs.Bitmap(queue.getResult("head")),
+				new createjs.Bitmap(queue.getResult("body"))
+			)
+			stage.addChild(pitcher)
+
 			stage.update() //complete後にupdateする
 		}
 	</script>
