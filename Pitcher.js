@@ -19,18 +19,12 @@
     this.bodyBitmap.y = 180
   }
 
-  p.throw = function(startX, startY, endX, endY) {
-    this.x = startX
-    this.y = startY
-    this.visible = true
-
-    createjs.Tween.removeTweens(this)
-    createjs.Tween.get(this)
-      .wait(50)
-      .to({
-        x: endX,
-        y: endY
-      }, 1000)
+  p.feint = function() {
+    createjs.Tween.get(this.headBitmap)
+      .to({scaleX: -1},1)
+      .wait(1000)
+      .to({scaleX: 1},1)
+      .wait(1000)
     createjs.Ticker.setFPS(30)
   }
 
