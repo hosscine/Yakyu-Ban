@@ -31,7 +31,7 @@
 				},
 				{
 					id: "body",
-					src: "assets/head.png"
+					src: "assets/body.png"
 				}
 			])
 			stage = new createjs.Stage("Canvas")
@@ -64,6 +64,8 @@
 				new createjs.Bitmap(queue.getResult("body"))
 			)
 			stage.addChild(pitcher)
+			pitcher.scaleX = pitcher.scaleY = 0.3
+			pitcher.x = pitcher.y = 250
 
 			stage.update() //complete後にupdateする
 		}

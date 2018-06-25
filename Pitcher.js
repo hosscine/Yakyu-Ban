@@ -1,21 +1,22 @@
 (function() {
 
   function Pitcher(headBitmap, bodyBitmap) {
-    this.headBitmap
-    this.bodyBitmap
+    this.headBitmap = headBitmap
+    this.bodyBitmap = bodyBitmap
 
     this.Container_constructor()
+    this.setup()
   }
   var p = createjs.extend(Pitcher, createjs.Container)
 
   p.setup = function() {
-    this.ballBitmap.scaleX = this.ballBitmap.scaleY = 1 / 10
-    this.visible = false
+    this.addChild(this.bodyBitmap, this.headBitmap)
 
-    this.addChild(this.ballBitmap)
-
-    this.regX = this.getBounds().width / 2 // addChild後にgetBoundsする
-    this.regY = this.getBounds().height / 2
+    this.headBitmap.regX = this.headBitmap.getBounds().width / 2
+    this.headBitmap.regY = this.headBitmap.getBounds().height / 2
+    this.bodyBitmap.regX = this.bodyBitmap.getBounds().width / 2
+    this.bodyBitmap.regY = this.bodyBitmap.getBounds().height / 2
+    this.bodyBitmap.y = 180
   }
 
   p.throw = function(startX, startY, endX, endY) {
