@@ -6,12 +6,14 @@
 	<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 	<script src="Ground.js"></script>
 	<script src="Ball.js"></script>
+	<script src="Bat.js"></script>
 	<script src="Pitcher.js"></script>
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 
 	<script>
 		let stage // 絶対init内でinitizalizeする
 		let ball
+		let bat
 		let ground
 		let pitcher
 		let queue
@@ -26,6 +28,10 @@
 					src: "assets/ball.png"
 				},
 				{
+					id: "bat",
+					src: "assets/bat.png"
+				},
+				{
 					id: "head",
 					src: "assets/head.png"
 				},
@@ -37,6 +43,7 @@
 			stage = new createjs.Stage("Canvas")
 			stage.addEventListener("stagemousedown", function(event) {
 				pitcher.pitching(250, 250, 250, 600)
+				console.log(bat.globalToLocal(stage.mouseX, stage.mouseY))
 			})
 
 			createjs.Ticker.addEventListener("tick", stage)
@@ -54,6 +61,14 @@
 				case "ball":
 					ball = new Ball(new createjs.Bitmap(event.result)) //Bitmapに変換する
 					stage.addChild(ball)
+					break
+				case "bat":
+					bat = new Bat(new createjs.Bitmap(event.result))
+					bat.x = 180
+					bat.y = 430
+					bat.scaleX = bat.scaleY = 0.5
+					console.log(bat)
+					stage.addChild(bat)
 					break
 			}
 		}
