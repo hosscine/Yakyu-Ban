@@ -30,7 +30,7 @@
         scaleX: 1
       }, 1)
       .wait(1000)
-      .call(this.ball.throw.bind(ball), arguments)
+      .call(() => this.ball.throw(...arguments))
     createjs.Ticker.setFPS(10)
   }
 

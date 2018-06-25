@@ -1,14 +1,12 @@
-(function() {
+class Ball extends createjs.Container {
+  constructor(ballBitmap) {
+    super()
 
-  function Ball(bitmap) {
-    this.ballBitmap = bitmap
-
-    this.Container_constructor()
+    this.ballBitmap = ballBitmap
     this.setup()
   }
-  var p = createjs.extend(Ball, createjs.Container)
 
-  p.setup = function() {
+  setup() {
     this.ballBitmap.scaleX = this.ballBitmap.scaleY = 1 / 10
     this.visible = false
 
@@ -18,12 +16,11 @@
     this.regY = this.getBounds().height / 2
   }
 
-  p.throw = function(startX, startY, endX, endY) {
+  throw(startX, startY, endX, endY) {
     this.x = startX
     this.y = startY
     this.visible = true
 
-console.log(this)
     createjs.Tween.removeTweens(this)
     createjs.Tween.get(this)
       .wait(50)
@@ -33,6 +30,6 @@ console.log(this)
       }, 1000)
     createjs.Ticker.setFPS(30)
   }
+}
 
-  window.Ball = createjs.promote(Ball, "Container")
-}())
+window.Ball = createjs.promote(Ball, "Container")
