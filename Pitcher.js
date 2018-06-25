@@ -1,8 +1,9 @@
 (function() {
 
-  function Pitcher(headBitmap, bodyBitmap) {
+  function Pitcher(headBitmap, bodyBitmap, ball) {
     this.headBitmap = headBitmap
     this.bodyBitmap = bodyBitmap
+    this.ball = ball
 
     this.Container_constructor()
     this.setup()
@@ -19,13 +20,18 @@
     this.bodyBitmap.y = 180
   }
 
-  p.feint = function() {
+  p.pitching = function(startX, startY, endX, endY) {
     createjs.Tween.get(this.headBitmap)
-      .to({scaleX: -1},1)
+      .to({
+        scaleX: -1
+      }, 1)
       .wait(1000)
-      .to({scaleX: 1},1)
+      .to({
+        scaleX: 1
+      }, 1)
       .wait(1000)
-    createjs.Ticker.setFPS(30)
+    console.log(...arguments)
+    createjs.Ticker.setFPS(10)
   }
 
   window.Pitcher = createjs.promote(Pitcher, "Container")

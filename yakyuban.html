@@ -1,3 +1,4 @@
+﻿<<<<<<< current
 <!DOCTYPE html>
 <html>
 
@@ -36,8 +37,7 @@
 			])
 			stage = new createjs.Stage("Canvas")
 			stage.addEventListener("stagemousedown", function(event) {
-				ball.throw(250, 250, 250, 600)
-				pitcher.feint()
+				pitcher.pitching(250, 250, 250, 600)
 			})
 
 			createjs.Ticker.addEventListener("tick", stage)
@@ -62,7 +62,8 @@
 		function handleComplete(event) {
 			pitcher = new Pitcher(
 				new createjs.Bitmap(queue.getResult("head")),
-				new createjs.Bitmap(queue.getResult("body"))
+				new createjs.Bitmap(queue.getResult("body")),
+				ball
 			)
 			stage.addChild(pitcher)
 			pitcher.scaleX = pitcher.scaleY = 0.3
