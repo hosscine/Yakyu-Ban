@@ -1,15 +1,10 @@
-(function() {
-
-  function Ground() {
-    this.Container_constructor()
-
-    this.label = "OKOK"
-
+class Ground extends createjs.Container {
+  constructor() {
+    super()
     this.setup()
   }
-  let p = createjs.extend(Ground, createjs.Container)
 
-  p.setup = function() {
+  setup() {
     let glass = new createjs.Shape()
     let dart = new createjs.Shape()
     let leftbox = new createjs.Shape()
@@ -50,6 +45,6 @@
     this.addChild(glass, dart,
       leftbox, rightbox, leftline, rightline, homebase)
   }
+}
 
-  window.Ground = createjs.promote(Ground, "Container")
-}())
+window.Ground = createjs.promote(Ground, "Container")
