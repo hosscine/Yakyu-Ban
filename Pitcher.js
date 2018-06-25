@@ -1,16 +1,14 @@
-(function() {
+class Pitcher extends createjs.Container {
+  constructor(headBitmap, bodyBitmap, ball) {
+    super()
 
-  function Pitcher(headBitmap, bodyBitmap, ball) {
     this.headBitmap = headBitmap
     this.bodyBitmap = bodyBitmap
     this.ball = ball
-
-    this.Container_constructor()
     this.setup()
   }
-  var p = createjs.extend(Pitcher, createjs.Container)
 
-  p.setup = function() {
+  setup() {
     this.addChild(this.bodyBitmap, this.headBitmap)
 
     this.headBitmap.regX = this.headBitmap.getBounds().width / 2
@@ -20,7 +18,7 @@
     this.bodyBitmap.y = 180
   }
 
-  p.pitching = function(startX, startY, endX, endY) {
+  pitching(startX, startY, endX, endY) {
     createjs.Tween.get(this.headBitmap)
       .to({
         scaleX: -1
@@ -33,6 +31,6 @@
       .call(() => this.ball.throw(...arguments))
     createjs.Ticker.setFPS(10)
   }
+}
 
-  window.Pitcher = createjs.promote(Pitcher, "Container")
-}())
+window.Pitcher = createjs.promote(Pitcher, "Container")
