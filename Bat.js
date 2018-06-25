@@ -1,8 +1,9 @@
 class Bat extends createjs.Container {
-  constructor(batBitmap) {
+  constructor(batBitmap, defaultRotation) {
     super()
 
     this.batBitmap = batBitmap
+    this.defaultRotation = defaultRotation
     this.setup()
   }
 
@@ -14,21 +15,21 @@ class Bat extends createjs.Container {
     this.batBitmap.x = this.getBounds().width
     this.batBitmap.y = -this.getBounds().height / 2
     this.batBitmap.rotation = 55
+    this.rotation = this.defaultRotation
   }
 
-  throw(startX, startY, endX, endY) {
-    this.x = startX
-    this.y = startY
-    this.visible = true
-
-    createjs.Tween.removeTweens(this)
+  swing(rotation) {
+    if (this.rotation != this.defaultRotation) return 0
+    
     createjs.Tween.get(this)
-      .wait(50)
       .to({
-        x: endX,
-        y: endY
-      }, 1000)
-    createjs.Ticker.setFPS(30)
+        rotation: rotation
+      }, 250)
+      .wait(1000)
+      .to({
+        rotation: this.defaultRotation
+      }, 1)
+    createjs.Ticker.setFPS(60)
   }
 }
 

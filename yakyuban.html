@@ -43,7 +43,7 @@
 			stage = new createjs.Stage("Canvas")
 			stage.addEventListener("stagemousedown", function(event) {
 				pitcher.pitching(250, 250, 250, 600)
-				console.log(bat.globalToLocal(stage.mouseX, stage.mouseY))
+				bat.swing(-45)
 			})
 
 			createjs.Ticker.addEventListener("tick", stage)
@@ -63,11 +63,10 @@
 					stage.addChild(ball)
 					break
 				case "bat":
-					bat = new Bat(new createjs.Bitmap(event.result))
+					bat = new Bat(new createjs.Bitmap(event.result), 45)
 					bat.x = 180
 					bat.y = 430
 					bat.scaleX = bat.scaleY = 0.5
-					console.log(bat)
 					stage.addChild(bat)
 					break
 			}
