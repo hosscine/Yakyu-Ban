@@ -30,7 +30,7 @@
         scaleX: 1
       }, 1)
       .wait(1000)
-    console.log(...arguments)
+      .call(this.ball.throw.bind(ball), arguments)
     createjs.Ticker.setFPS(10)
   }
 

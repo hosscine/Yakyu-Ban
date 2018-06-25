@@ -23,6 +23,7 @@
     this.y = startY
     this.visible = true
 
+console.log(this)
     createjs.Tween.removeTweens(this)
     createjs.Tween.get(this)
       .wait(50)
