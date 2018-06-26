@@ -1,10 +1,11 @@
 class Pitcher extends createjs.Container {
-  constructor(headBitmap, bodyBitmap, ball) {
+  constructor(headBitmap, bodyBitmap, ball, bat) {
     super()
 
     this.headBitmap = headBitmap
     this.bodyBitmap = bodyBitmap
     this.ball = ball
+    this.bat = bat
     this.setup()
   }
 
@@ -16,6 +17,8 @@ class Pitcher extends createjs.Container {
     this.bodyBitmap.regX = this.bodyBitmap.getBounds().width / 2
     this.bodyBitmap.regY = this.bodyBitmap.getBounds().height / 2
     this.bodyBitmap.y = 180
+
+    createjs.Ticker.addEventListener("tick", this.handleTick)
   }
 
   pitching(startX, startY, endX, endY) {
@@ -30,6 +33,10 @@ class Pitcher extends createjs.Container {
       .wait(1000)
       .call(() => this.ball.throw(...arguments))
     createjs.Ticker.setFPS(10)
+  }
+
+  handleTick(){
+    
   }
 }
 

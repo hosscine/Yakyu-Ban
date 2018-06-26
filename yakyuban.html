@@ -43,7 +43,7 @@
 			stage = new createjs.Stage("Canvas")
 			stage.addEventListener("stagemousedown", function(event) {
 				pitcher.pitching(250, 250, 250, 600)
-				bat.swing(-45)
+				bat.swing(-45, ball)
 			})
 
 			createjs.Ticker.addEventListener("tick", stage)
@@ -63,7 +63,7 @@
 					stage.addChild(ball)
 					break
 				case "bat":
-					bat = new Bat(new createjs.Bitmap(event.result), 45)
+					bat = new Bat(new createjs.Bitmap(event.result), 45, ball)
 					bat.x = 180
 					bat.y = 430
 					bat.scaleX = bat.scaleY = 0.5
@@ -76,11 +76,13 @@
 			pitcher = new Pitcher(
 				new createjs.Bitmap(queue.getResult("head")),
 				new createjs.Bitmap(queue.getResult("body")),
-				ball
+				ball,
+				bat
 			)
 			stage.addChild(pitcher)
 			pitcher.scaleX = pitcher.scaleY = 0.3
-			pitcher.x = pitcher.y = 250
+			pitcher.x = 250
+			pitcher.y = 200
 
 			stage.update() //complete後にupdateする
 		}

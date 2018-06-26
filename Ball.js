@@ -3,6 +3,7 @@ class Ball extends createjs.Container {
     super()
 
     this.ballBitmap = ballBitmap
+    // this.hitBox
     this.setup()
   }
 
@@ -14,9 +15,13 @@ class Ball extends createjs.Container {
 
     this.regX = this.getBounds().width / 2 // addChild後にgetBoundsする
     this.regY = this.getBounds().height / 2
+
+    // this.hitBox = this.addChild(new createjs.Shape())
+    // this.hitBox.graphics.beginFill("black").drawCircle(this.regX, this.regY, 18)
+    // this.hitBox.visible = false
   }
 
-  throw(startX, startY, endX, endY) {
+  throw (startX, startY, endX, endY) {
     this.x = startX
     this.y = startY
     this.visible = true
