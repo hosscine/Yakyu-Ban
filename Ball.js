@@ -4,6 +4,8 @@ class Ball extends createjs.Container {
 
     this.ballBitmap = ballBitmap
     this.isMoving = false
+    this.moveAngle
+    this.moveEnergy
     this.setup()
   }
 
@@ -30,13 +32,26 @@ class Ball extends createjs.Container {
         x: endX,
         y: endY
       }, 1000)
-      .call(this.handleComplete)
+      .call(() => {
+        this.isMoving = false
+      })
     createjs.Ticker.setFPS(60)
   }
 
-  handleComplete(){
-    this.isMoving = false
+  fly(angle, energy) {
+    this.moveAngle = angle
+    this.moveEnergy = energy
+
+    let handleTick = (event) => {
+      this.moveEnergy *= 0.99
+      if (this.moveEnergy < 0.01) {
+        this.moveEnergy = 0
+        createjs.Ticker.removeEventListener("tick", handleTick)
+      }
+    }
+    createjs.Ticker.addEventListener("tick", handleTick)
   }
+
 }
 
 window.Ball = createjs.promote(Ball, "Container")
