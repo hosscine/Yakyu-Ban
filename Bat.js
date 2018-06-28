@@ -4,10 +4,10 @@ class Bat extends createjs.Container {
 
     this.batBitmap = batBitmap
     this.defaultRotation = defaultRotation
-    // this.defaultRotation = 0
     this.targetBall = targetBall
     this.hitBox
     this.isMoving = false
+    this.swingPower = 1
 
     this.setup()
   }
@@ -52,14 +52,15 @@ class Bat extends createjs.Container {
 
     if (this.hitBox.hitTest(point.x, point.y)) {
       createjs.Tween.removeTweens(this.targetBall)
-      // console.log(createjs.Tween.get(this.targetBall))
-      let batForce = new createjs.Point(Math.sin(this.rotation), Math.cos(this.rotation))
 
-      console.log(batForce.x + "" + batForce.y)
-      console.log("hoge")
-      // alert("hoge")
+      let batForceAngle = new createjs.Point(
+        Math.sin(this.rotation),
+        Math.cos(this.rotation)
+      )
+      let batForce = (this.rotation - this.defaultRotation) * this.swingPower
+
+      this.targetBall.fly(batForceAngle, batForce)
     }
-
   }
 
   handleComplete() {
