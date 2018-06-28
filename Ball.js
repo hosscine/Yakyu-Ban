@@ -3,6 +3,7 @@ class Ball extends createjs.Container {
     super()
 
     this.ballBitmap = ballBitmap
+    this.isMoving = false
     // this.hitBox
     this.setup()
   }
@@ -25,6 +26,7 @@ class Ball extends createjs.Container {
     this.x = startX
     this.y = startY
     this.visible = true
+    this.isMoving = true
 
     createjs.Tween.removeTweens(this)
     createjs.Tween.get(this)
@@ -33,7 +35,13 @@ class Ball extends createjs.Container {
         x: endX,
         y: endY
       }, 1000)
+      .call(this.handleComplete)
     createjs.Ticker.setFPS(30)
+  }
+
+  handleComplete(){
+    this.isMoving = false
+    createjs.Ticker.setFPS(10)
   }
 }
 

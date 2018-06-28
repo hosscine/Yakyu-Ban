@@ -6,7 +6,7 @@ class Bat extends createjs.Container {
     this.defaultRotation = defaultRotation
     this.targetBall = targetBall
     this.hitBox
-    this.isReady = true
+    this.isMoving = false
 
     this.setup()
   }
@@ -42,7 +42,7 @@ class Bat extends createjs.Container {
 
       // Motion Tween
     } else {
-      this.isReady = false
+      this.isMoving = true
       let tween = createjs.Tween.get(this)
         tween.to({
           rotation: rotation
@@ -59,11 +59,11 @@ class Bat extends createjs.Container {
   }
 
   handleChange(event){
-    console.log(1)
+    // console.log(1)
   }
 
   handleComplete(){
-    this.isReady = true
+    this.isMoving = false
   }
 }
 
