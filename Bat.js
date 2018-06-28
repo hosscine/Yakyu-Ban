@@ -30,34 +30,28 @@ class Bat extends createjs.Container {
   }
 
   swing(rotation) {
-    // Collision Check
-    if (this.rotation != this.defaultRotation) {
-      let point = this.targetBall.localToLocal(0, 0, this)
-      console.log(point)
-      console.log(this.hitBox.hitTest(point.x, point.y))
-      if (this.hitBox.hitTest(point.x, point.y)) {
-        createjs.Tween.removeTweens(this.targetBall)
-      }
-
-      // Motion Tween
-    } else {
+    if (this.isMoving) return 0
       this.isMoving = true
-      let tween = createjs.Tween.get(this)
-      tween.to({
-          rotation: rotation
-        }, 250)
-        .wait(1000)
-        .to({
-          rotation: this.defaultRotation
-        }, 500)
-        .call(this.handleComplete)
-      tween.addEventListener("change", () => this.handleChange())
-      createjs.Ticker.setFPS(60)
-    }
+    let tween = createjs.Tween.get(this)
+    tween.to({
+        rotation: rotation
+      }, 250)
+      .wait(1000)
+      .to({
+        rotation: this.defaultRotation
+      }, 500)
+      .call(this.handleComplete)
+    tween.addEventListener("change", () => this.handleChange())
+    createjs.Ticker.setFPS(60)
   }
 
+
   handleChange(event) {
-    // console.log(this.rotation)
+    let point = this.targetBall.localToLocal(0, 0, this)
+    if (this.hitBox.hitTest(point.x, point.y)) {
+      createjs.Tween.removeTweens(this.targetBall)
+    }
+
   }
 
   handleComplete() {

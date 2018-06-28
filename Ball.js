@@ -31,7 +31,7 @@ class Ball extends createjs.Container {
         y: endY
       }, 1000)
       .call(this.handleComplete)
-    createjs.Ticker.setFPS(30)
+    createjs.Ticker.setFPS(60)
   }
 
   handleComplete(){
