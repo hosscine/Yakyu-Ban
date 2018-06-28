@@ -25,7 +25,7 @@ class Bat extends createjs.Container {
     this.hitBox.graphics.beginFill("black")
       .drawRect(b2.x, b2.y, b2.width, b2.height)
     this.hitBox.alpha = 0.5
-    this.hitBox.visible = true
+    this.hitBox.visible = false
 
     this.rotation = this.defaultRotation
   }
@@ -47,20 +47,18 @@ class Bat extends createjs.Container {
     createjs.Ticker.setFPS(60)
 
     let handleChange = (event) => {
-      // console.log("honge")
       let point = this.targetBall.localToLocal(0, 0, this.hitBox)
-      if (this.hitBox.hitTest(point.x, point.y)) {
-        let batForceAngle = new createjs.Point(
-          Math.sin(this.rotation),
-          Math.cos(this.rotation)
-        )
-        let batForce = this.swingPower
+      if (!this.hitBox.hitTest(point.x, point.y)) return 0
 
-        this.targetBall.fly(batForceAngle, batForce)
+      let batForceAngle = new createjs.Point(
+        Math.sin(this.rotation),
+        Math.cos(this.rotation)
+      )
+      let batForce = this.swingPower
 
-        createjs.Tween.removeTweens(this.targetBall)
-        tween.off("change", listner)
-      }
+      this.targetBall.fly(batForceAngle, batForce)
+      createjs.Tween.removeTweens(this.targetBall)
+      tween.off("change", listner)
     }
     let listner = tween.on("change", handleChange)
   }

@@ -44,8 +44,10 @@ class Ball extends createjs.Container {
 
     let handleTick = (event) => {
       this.moveEnergy *= 0.99
-      if (this.moveEnergy < 0.01) {
+      if (this.moveEnergy < 0.1) {
         this.moveEnergy = 0
+        this.visible = false
+        this.isMoving = false
         createjs.Ticker.removeEventListener("tick", handleTick)
       }
     }
