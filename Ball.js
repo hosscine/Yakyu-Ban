@@ -43,6 +43,8 @@ class Ball extends createjs.Container {
     this.moveEnergy = energy
 
     let handleTick = (event) => {
+      this.x += this.moveAngle.x * this.moveEnergy
+      this.y += this.moveAngle.y * this.moveEnergy
       this.moveEnergy *= 0.99
       if (this.moveEnergy < 0.1) {
         this.moveEnergy = 0

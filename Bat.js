@@ -7,7 +7,7 @@ class Bat extends createjs.Container {
     this.targetBall = targetBall
     this.hitBox
     this.isMoving = false
-    this.swingPower = 1
+    this.swingPower = 5
 
     this.setup()
   }
