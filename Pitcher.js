@@ -6,6 +6,7 @@ class Pitcher extends createjs.Container {
     this.bodyBitmap = bodyBitmap
     this.ball = ball
     this.bat = bat
+    this.isSetUp = false
     this.setup()
   }
 
@@ -19,13 +20,15 @@ class Pitcher extends createjs.Container {
     this.bodyBitmap.y = 180
   }
 
-  get pitchingReady(){
-    return !this.bat.isMoving === !this.ball.isMoving
+  get pitchingReady() {
+    return (!this.bat.isMoving && !this.ball.isMoving && !this.isSetUp)
   }
 
   pitching(startX, startY, endX, endY) {
-    createjs.Tween.get(this.headBitmap)
-      .to({
+    // console.log(this.pitchingReady)
+    this.isSetUp = true
+    let tween = createjs.Tween.get(this.headBitmap)
+    tween.to({
         scaleX: -1
       }, 1)
       .wait(1000)
@@ -34,7 +37,12 @@ class Pitcher extends createjs.Container {
       }, 1)
       .wait(1000)
       .call(() => this.ball.throw(...arguments))
+    tween.call(() => this.handleComplete())
     createjs.Ticker.setFPS(10)
+  }
+
+  handleComplete() {
+    this.isSetUp = false
   }
 }
 

@@ -19,15 +19,14 @@ class Bat extends createjs.Container {
     this.batBitmap.x = this.getBounds().width
     this.batBitmap.y = -this.getBounds().height / 2
     this.batBitmap.rotation = 55
-    this.rotation = this.defaultRotation
 
     this.hitBox = stage.addChild(new createjs.Shape())
     let b = this.batBitmap.getBounds()
     this.hitBox.graphics.beginFill("black")
-    .drawRect(b.width / 2 + 30, b.height + 35, 110, 10)
-    // this.hitBox = new createjs.Rectangle(b.width / 2 + 30, b.height + 35, 110, 10)
+      .drawRect(b.width / 2 + 30, b.height + 35, 110, 10)
     this.hitBox.visible = false
-// console.log(this.hitBox.)
+
+    this.rotation = this.defaultRotation
   }
 
   swing(rotation) {
@@ -44,7 +43,7 @@ class Bat extends createjs.Container {
     } else {
       this.isMoving = true
       let tween = createjs.Tween.get(this)
-        tween.to({
+      tween.to({
           rotation: rotation
         }, 250)
         .wait(1000)
@@ -52,17 +51,16 @@ class Bat extends createjs.Container {
           rotation: this.defaultRotation
         }, 500)
         .call(this.handleComplete)
-        tween.addEventListener("change", this.handleChange)
-        // tween.addEventListener("complete", this.handleComplete)
+      tween.addEventListener("change", () => this.handleChange())
       createjs.Ticker.setFPS(60)
     }
   }
 
-  handleChange(event){
-    // console.log(1)
+  handleChange(event) {
+    // console.log(this.rotation)
   }
 
-  handleComplete(){
+  handleComplete() {
     this.isMoving = false
   }
 }

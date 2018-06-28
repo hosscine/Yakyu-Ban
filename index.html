@@ -8,7 +8,7 @@
 	<script src="Ball.js"></script>
 	<script src="Bat.js"></script>
 	<script src="Pitcher.js"></script>
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 
 	<script>
 		let stage // 絶対init内でinitizalizeする
@@ -42,7 +42,6 @@
 			])
 			stage = new createjs.Stage("Canvas")
 			stage.addEventListener("stagemousedown", function(event) {
-				pitcher.pitching(250, 250, 250, 600)
 				bat.swing(-45, ball)
 			})
 
@@ -84,7 +83,14 @@
 			pitcher.x = 250
 			pitcher.y = 200
 
+			createjs.Ticker.addEventListener("tick", handleTick)
 			stage.update() //complete後にupdateする
+		}
+
+		function handleTick(event) {
+			if (!pitcher.pitchingReady) return 0
+
+			pitcher.pitching(250, 250, 250, 600)
 		}
 	</script>
 </head>
