@@ -4,6 +4,7 @@ class Bat extends createjs.Container {
 
     this.batBitmap = batBitmap
     this.defaultRotation = defaultRotation
+    // this.defaultRotation = 0
     this.targetBall = targetBall
     this.hitBox
     this.isMoving = false
@@ -16,14 +17,12 @@ class Bat extends createjs.Container {
 
     this.addChild(this.batBitmap)
 
-    this.batBitmap.x = this.getBounds().width
-    this.batBitmap.y = -this.getBounds().height / 2
-    this.batBitmap.rotation = 55
-
-    this.hitBox = stage.addChild(new createjs.Shape())
+    this.hitBox = this.addChild(new createjs.Shape())
     let b = this.batBitmap.getBounds()
     this.hitBox.graphics.beginFill("black")
-      .drawRect(b.width / 2 + 30, b.height + 35, 110, 10)
+      .drawRect(b.x, b.y, b.width, b.height/12)
+    // this.hitbox.graphics
+    this.hitBox.setBounds(this.batBitmap.getBounds())
     this.hitBox.visible = false
 
     this.rotation = this.defaultRotation
@@ -47,9 +46,14 @@ class Bat extends createjs.Container {
 
 
   handleChange(event) {
-    let point = this.targetBall.localToLocal(0, 0, this)
+    let point = this.targetBall.localToLocal(0, 0, this.hitBox)
+     console.log(point)
+
     if (this.hitBox.hitTest(point.x, point.y)) {
       createjs.Tween.removeTweens(this.targetBall)
+      // console.log(createjs.Tween.get(this.targetBall))
+      console.log("hoge")
+      // alert("hoge")
     }
 
   }
