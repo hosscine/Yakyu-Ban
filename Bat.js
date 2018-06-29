@@ -47,20 +47,24 @@ class Bat extends createjs.Container {
     createjs.Ticker.setFPS(60)
 
     let handleChange = (event) => {
+
       let point = this.targetBall.localToLocal(0, 0, this.hitBox)
-      if (!this.hitBox.hitTest(point.x, point.y)) return 0
+      if (!this.hitBox.hitTest(point.x, point.y) ||
+        this.targetBall.moveEnergy > 0) return 0
 
       let batForceAngle = new createjs.Point(
         Math.sin(this.rotation),
         Math.cos(this.rotation)
       )
       let batForce = this.swingPower
+      // console.log(batForceAngle.x, batForceAngle.y)
+      console.log(stage.canvas)
 
-      this.targetBall.fly(batForceAngle, batForce)
       createjs.Tween.removeTweens(this.targetBall)
-      tween.off("change", listner)
+      tween.off("change", handleChange)
+      this.targetBall.fly(batForceAngle, batForce)
     }
-    let listner = tween.on("change", handleChange)
+    tween.on("change", handleChange)
   }
 }
 
