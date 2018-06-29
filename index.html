@@ -38,6 +38,10 @@
 				{
 					id: "body",
 					src: "assets/body.png"
+				},
+				{
+					id: "pitching",
+					src: "assets/pitching.png"
 				}
 			])
 			stage = new createjs.Stage("Canvas")
@@ -75,6 +79,7 @@
 			pitcher = new Pitcher(
 				new createjs.Bitmap(queue.getResult("head")),
 				new createjs.Bitmap(queue.getResult("body")),
+				new createjs.Bitmap(queue.getResult("pitching")),
 				ball,
 				bat
 			)
