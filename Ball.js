@@ -51,11 +51,13 @@ class Ball extends createjs.Container {
       if (this.flyEnergy < 0.1 ||
         gp.x > stage.canvas.width || gp.x < 0 ||
         gp.y > stage.canvas.height || gp.y < 0) {
+        if (this.flyEnergy === 0) return 0
 
         this.flyEnergy = 0
         this.visible = false
         this.isMoving = false
         createjs.Ticker.removeEventListener("tick", handleTick)
+        scorer.evaluateFly(this.x, this.y)
       }
     }
     createjs.Ticker.addEventListener("tick", handleTick)

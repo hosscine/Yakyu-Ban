@@ -28,6 +28,9 @@ class Scorer extends createjs.Container {
     this.remainText.y = -80
   }
 
+  get score() {
+    return this._score
+  }
   set score(value) {
     this._score = value
     this.scoreText.text = this._score + "点"
@@ -46,9 +49,10 @@ class Scorer extends createjs.Container {
   }
 
   evaluateFly(x, y) {
-    console.log(x, y)
-    console.log(Math.atan2(y, x))
-    console.log()
+    if (Math.abs(x - ground.x) < Math.abs(y - ground.y) &&
+      y < ground.y) {
+      this.score = this.score + 1
+    }
   }
 }
 
