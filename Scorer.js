@@ -2,8 +2,10 @@ class Scorer extends createjs.Container {
   constructor() {
     super()
 
-    this.score = 0
-    this.remainingBall = 10
+    this.scoreText
+    this.remainText
+    this._score = 0
+    this._remainingBall = 10
     this.setup()
   }
 
@@ -13,17 +15,31 @@ class Scorer extends createjs.Container {
       .drawRoundRect(-100, -100, 100, 100, 20, 20)
     background.alpha = 0.5
 
-    let scoreText = this.addChild(
-      new createjs.Text(this.score + "点", "20px arial", "white"))
-    scoreText.regX = scoreText.getMeasuredWidth() / 2
-    scoreText.x = -50
-    scoreText.y = -40
+    this.scoreText = this.addChild(
+      new createjs.Text(this._score + "点", "20px arial", "white"))
+    this.scoreText.regX = this.scoreText.getMeasuredWidth() / 2
+    this.scoreText.x = -50
+    this.scoreText.y = -40
 
-    let remainText = this.addChild(
-      new createjs.Text(this.remainingBall + "球", "20px arial", "white"))
-    remainText.regX = remainText.getMeasuredWidth() / 2
-    remainText.x = -50
-    remainText.y = -80
+    this.remainText = this.addChild(
+      new createjs.Text(this._remainingBall + "球", "20px arial", "white"))
+    this.remainText.regX = this.remainText.getMeasuredWidth() / 2
+    this.remainText.x = -50
+    this.remainText.y = -80
+  }
+
+  set score(value){
+    this._score = value
+    this.scoreText.text = this._score + "点"
+    this.scoreText.regX = this.scoreText.getMeasuredWidth() / 2
+    this.scoreText.x = -50
+  }
+
+  set remainingBall(value){
+    this._remainingBall = value
+    this.remainText.text = this._remainingBall + "球"
+    this.remainText.regX = this.remainText.getMeasuredWidth() / 2
+    this.remainText.x = -50
   }
 
   evaluateFly(x, y) {
