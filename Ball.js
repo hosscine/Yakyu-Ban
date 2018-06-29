@@ -46,7 +46,12 @@ class Ball extends createjs.Container {
       this.x += this.moveAngle.x * this.moveEnergy
       this.y += this.moveAngle.y * this.moveEnergy
       this.moveEnergy *= 0.99
-      if (this.moveEnergy < 0.1) {
+
+      let gp = this.localToGlobal(0, 0)
+      if (this.moveEnergy < 0.1 ||
+        gp.x > stage.canvas.width || gp.x < 0 ||
+        gp.y > stage.canvas.height || gp.y < 0) {
+
         this.moveEnergy = 0
         this.visible = false
         this.isMoving = false

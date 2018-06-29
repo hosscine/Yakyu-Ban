@@ -47,7 +47,6 @@ class Bat extends createjs.Container {
     createjs.Ticker.setFPS(60)
 
     let handleChange = (event) => {
-
       let point = this.targetBall.localToLocal(0, 0, this.hitBox)
       if (!this.hitBox.hitTest(point.x, point.y) ||
         this.targetBall.moveEnergy > 0) return 0
@@ -57,8 +56,6 @@ class Bat extends createjs.Container {
         Math.cos(this.rotation)
       )
       let batForce = this.swingPower
-      // console.log(batForceAngle.x, batForceAngle.y)
-      console.log(stage.canvas)
 
       createjs.Tween.removeTweens(this.targetBall)
       tween.off("change", handleChange)
