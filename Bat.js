@@ -51,15 +51,15 @@ class Bat extends createjs.Container {
       if (!this.hitBox.hitTest(point.x, point.y) ||
         this.targetBall.moveEnergy > 0) return 0
 
-      let batForceAngle = new createjs.Point(
+      let flyToward = new createjs.Point(
         Math.sin(this.rotation),
-        Math.cos(this.rotation)
+        -Math.cos(this.rotation)
       )
-      let batForce = this.swingPower
+      let flyForce = this.swingPower
 
       createjs.Tween.removeTweens(this.targetBall)
       tween.off("change", handleChange)
-      this.targetBall.fly(batForceAngle, batForce)
+      this.targetBall.fly(flyToward, flyForce)
     }
     tween.on("change", handleChange)
   }

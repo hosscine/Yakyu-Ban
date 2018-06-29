@@ -4,8 +4,8 @@ class Ball extends createjs.Container {
 
     this.ballBitmap = ballBitmap
     this.isMoving = false
-    this.moveAngle
-    this.moveEnergy
+    this.flyToward
+    this.flyEnergy
     this.setup()
   }
 
@@ -38,21 +38,21 @@ class Ball extends createjs.Container {
     createjs.Ticker.setFPS(60)
   }
 
-  fly(angle, energy) {
-    this.moveAngle = angle
-    this.moveEnergy = energy
+  fly(toward, energy) {
+    this.flyToward = toward
+    this.flyEnergy = energy
 
     let handleTick = (event) => {
-      this.x += this.moveAngle.x * this.moveEnergy
-      this.y += this.moveAngle.y * this.moveEnergy
-      this.moveEnergy *= 0.99
+      this.x += this.flyToward.x * this.flyEnergy
+      this.y += this.flyToward.y * this.flyEnergy
+      this.flyEnergy *= 0.99
 
       let gp = this.localToGlobal(0, 0)
-      if (this.moveEnergy < 0.1 ||
+      if (this.flyEnergy < 0.1 ||
         gp.x > stage.canvas.width || gp.x < 0 ||
         gp.y > stage.canvas.height || gp.y < 0) {
 
-        this.moveEnergy = 0
+        this.flyEnergy = 0
         this.visible = false
         this.isMoving = false
         createjs.Ticker.removeEventListener("tick", handleTick)
