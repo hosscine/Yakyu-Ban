@@ -51,8 +51,6 @@
 				bat.swing(-45, ball)
 			})
 
-			createjs.Ticker.addEventListener("tick", stage)
-
 			ground = stage.addChild(new Ground())
 			ground.x = 250
 			ground.y = 450
@@ -60,6 +58,8 @@
 
 			scorer = stage.addChild(new Scorer())
 			scorer.x = scorer.y = 480
+
+			createjs.Ticker.addEventListener("tick", stage)
 
 			stage.update()
 		}
@@ -98,8 +98,9 @@
 		}
 
 		function handleTick(event) {
-			if (!pitcher.pitchingReady) return 0
+			if (!pitcher.pitchingReady || scorer.remainingBall === 0) return 0
 			pitcher.pitching(250, 250, 250, 600)
+			scorer.remainingBall = scorer.remainingBall - 1
 		}
 	</script>
 </head>

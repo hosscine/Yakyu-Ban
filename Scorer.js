@@ -28,14 +28,17 @@ class Scorer extends createjs.Container {
     this.remainText.y = -80
   }
 
-  set score(value){
+  set score(value) {
     this._score = value
     this.scoreText.text = this._score + "点"
     this.scoreText.regX = this.scoreText.getMeasuredWidth() / 2
     this.scoreText.x = -50
   }
 
-  set remainingBall(value){
+  get remainingBall() {
+    return this._remainingBall
+  }
+  set remainingBall(value) {
     this._remainingBall = value
     this.remainText.text = this._remainingBall + "球"
     this.remainText.regX = this.remainText.getMeasuredWidth() / 2
@@ -43,7 +46,9 @@ class Scorer extends createjs.Container {
   }
 
   evaluateFly(x, y) {
-
+    console.log(x, y)
+    console.log(Math.atan2(y, x))
+    console.log()
   }
 }
 
