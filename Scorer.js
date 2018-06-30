@@ -4,8 +4,10 @@ class Scorer extends createjs.Container {
 
     this.scoreText
     this.remainText
+    this.shadow
+    this.restart
     this._score = 0
-    this._remainingBall = 10
+    this._remainingBall = 2
     this.setup()
   }
 
@@ -26,6 +28,22 @@ class Scorer extends createjs.Container {
     this.remainText.regX = this.remainText.getMeasuredWidth() / 2
     this.remainText.x = -50
     this.remainText.y = -80
+
+    this.shadow = new createjs.Shape()
+    this.shadow.graphics.beginFill("black")
+      .drawRect(0, 0, stage.canvas.width, stage.canvas.height)
+    this.shadow.alpha = 0.5
+
+    this.restart = new createjs.Text("もういちど", "30px arial", "white")
+    this.restart.regX = this.restart.getMeasuredWidth() / 2
+    this.restart.x = stage.canvas.width / 2
+    this.restart.y = stage.canvas.height / 2
+    this.restart.addEventListener("click", () => {
+      this.shadow.visible = false
+      this.restart.visible = false
+      this.remainingBall = 10
+      this.score = 0
+    })
   }
 
   get score() {
@@ -53,6 +71,16 @@ class Scorer extends createjs.Container {
       y < ground.y) {
       this.score = this.score + 1
     }
+    if(this.remainingBall === 0) this.gameEnd()
+  }
+
+  gameEnd() {
+    if (!stage.contains(this.shadow)) {
+      stage.addChild(this.shadow)
+      stage.addChild(this.restart)
+    }
+    this.shadow.visible = true
+    this.restart.visible = true
   }
 }
 
