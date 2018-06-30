@@ -52,8 +52,8 @@ class Bat extends createjs.Container {
         this.targetBall.moveEnergy > 0) return 0
 
       let flyToward = new createjs.Point(
-        Math.sin(this.rotation),
-        -Math.cos(this.rotation)
+        Math.sin(this.rotation / 360 * Math.PI * 5),
+        -Math.cos(this.rotation / 360 * Math.PI * 5)
       )
       let flyForce = this.swingPower
 
