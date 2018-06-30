@@ -5,7 +5,8 @@ class Scorer extends createjs.Container {
     this.scoreText
     this.remainText
     this.shadow
-    this.restart
+    this.restartText
+    this.modeChangeText
     this._score = 0
     this._remainingBall = 10
     this.setup()
@@ -34,16 +35,32 @@ class Scorer extends createjs.Container {
       .drawRect(0, 0, stage.canvas.width, stage.canvas.height)
     this.shadow.alpha = 0.5
 
-    this.restart = new createjs.Text("もういちど", "30px arial", "white")
-    this.restart.regX = this.restart.getMeasuredWidth() / 2
-    this.restart.x = stage.canvas.width / 2
-    this.restart.y = stage.canvas.height / 2
-    this.restart.addEventListener("click", () => {
-      this.shadow.visible = false
-      this.restart.visible = false
-      this.remainingBall = 10
-      this.score = 0
+    this.restartText = new createjs.Text("もういちど", "bold 30px arial", "white")
+    this.restartText.regX = this.restartText.getMeasuredWidth() / 2
+    this.restartText.x = stage.canvas.width / 2
+    this.restartText.y = stage.canvas.height / 2
+    this.restartText.cursor = "pointer"
+    this.restartText.addEventListener("click", () => this.restart())
+
+    this.modeChangeText = new createjs.Text("ハードモード", "bold 30px arial", "red")
+    this.modeChangeText.regX = this.modeChangeText.getMeasuredWidth() / 2
+    this.modeChangeText.x = stage.canvas.width / 2
+    this.modeChangeText.y = stage.canvas.height / 3
+    this.modeChangeText.cursor = "pointer"
+    this.modeChangeText.addEventListener("click", () => {
+      if (bat.hardness === 5) {
+        bat.hardness = 8
+        this.modeChangeText.text = "イージーモード"
+        this.modeChangeText.color = "blue"
+      } else {
+        bat.hardness = 5
+        this.modeChangeText.text = "ハードモード"
+        this.modeChangeText.color = "red"
+      }
+      this.restart()
     })
+
+
   }
 
   get score() {
@@ -71,16 +88,27 @@ class Scorer extends createjs.Container {
       y < ground.y) {
       this.score = this.score + 1
     }
-    if(this.remainingBall === 0) this.gameEnd()
+    if (this.remainingBall === 0) this.gameEnd()
   }
 
   gameEnd() {
     if (!stage.contains(this.shadow)) {
       stage.addChild(this.shadow)
-      stage.addChild(this.restart)
+      stage.addChild(this.restartText)
+      stage.addChild(this.modeChangeText)
     }
     this.shadow.visible = true
-    this.restart.visible = true
+    this.restartText.visible = true
+    if (bat.hardness !== 5 || this.score > 8) this.modeChangeText.visible = true
+    else this.modeChangeText.visible = false
+  }
+
+  restart() {
+    this.shadow.visible = false
+    this.restartText.visible = false
+    this.modeChangeText.visible = false
+    this.remainingBall = 10
+    this.score = 0
   }
 }
 
