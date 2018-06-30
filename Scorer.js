@@ -32,28 +32,31 @@ class Scorer extends createjs.Container {
 
     this.shadow = new createjs.Shape()
     this.shadow.graphics.beginFill("black")
-      .drawRect(0, 0, stage.canvas.width, stage.canvas.height)
+      .drawRect(-stage.canvas.width + 20, -stage.canvas.height + 20,
+        stage.canvas.width, stage.canvas.height)
     this.shadow.alpha = 0.5
 
     this.restartText = new createjs.Text("もういちど", "bold 30px arial", "white")
     this.restartText.regX = this.restartText.getMeasuredWidth() / 2
-    this.restartText.x = stage.canvas.width / 2
-    this.restartText.y = stage.canvas.height / 2
+    this.restartText.x = -230
+    this.restartText.y = -230
     this.restartText.cursor = "pointer"
     this.restartText.addEventListener("click", () => this.restart())
 
     this.modeChangeText = new createjs.Text("ハードモード", "bold 30px arial", "red")
     this.modeChangeText.regX = this.modeChangeText.getMeasuredWidth() / 2
-    this.modeChangeText.x = stage.canvas.width / 2
-    this.modeChangeText.y = stage.canvas.height / 3
+    this.modeChangeText.x = -230
+    this.modeChangeText.y = -150
     this.modeChangeText.cursor = "pointer"
     this.modeChangeText.addEventListener("click", () => {
       if (bat.hardness === 5) {
         bat.hardness = 8
+        this.modeChangeText.x = -250
         this.modeChangeText.text = "イージーモード"
-        this.modeChangeText.color = "blue"
+        this.modeChangeText.color = "#4fdaed"
       } else {
         bat.hardness = 5
+        this.modeChangeText.x = -230
         this.modeChangeText.text = "ハードモード"
         this.modeChangeText.color = "red"
       }
@@ -92,10 +95,10 @@ class Scorer extends createjs.Container {
   }
 
   gameEnd() {
-    if (!stage.contains(this.shadow)) {
-      stage.addChild(this.shadow)
-      stage.addChild(this.restartText)
-      stage.addChild(this.modeChangeText)
+    if (!this.contains(this.shadow)) {
+      this.addChild(this.shadow)
+      this.addChild(this.restartText)
+      this.addChild(this.modeChangeText)
     }
     this.shadow.visible = true
     this.restartText.visible = true

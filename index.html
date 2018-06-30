@@ -61,6 +61,9 @@
 
 			createjs.Ticker.addEventListener("tick", stage)
 
+			stage.regX = stage.regY = 250
+			stage.x = stage.y = stage.canvas.height / 2
+			stage.scaleX = stage.scaleY = stage.canvas.height / 500
 			stage.enableMouseOver()
 			stage.update()
 		}
@@ -94,6 +97,7 @@
 			pitcher.x = 250
 			pitcher.y = 200
 
+			stage.swapChildren(pitcher, scorer)
 			createjs.Ticker.addEventListener("tick", handleTick)
 			stage.update() //complete後にupdateする
 		}
@@ -107,7 +111,7 @@
 </head>
 
 <body onload="init();">
-	<canvas id="Canvas" width="500" height="500">
+	<canvas id="Canvas" width="800" height="800">
 		alternate content
 	</canvas>
 </body>
