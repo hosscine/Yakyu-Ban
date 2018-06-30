@@ -7,7 +7,7 @@ class Scorer extends createjs.Container {
     this.shadow
     this.restart
     this._score = 0
-    this._remainingBall = 2
+    this._remainingBall = 10
     this.setup()
   }
 

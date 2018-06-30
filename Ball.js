@@ -35,6 +35,9 @@ class Ball extends createjs.Container {
       .call(() => {
         this.isMoving = false
       })
+      .call(() => {
+        scorer.evaluateFly(this.x, this.y)
+      })
     createjs.Ticker.setFPS(60)
   }
 
