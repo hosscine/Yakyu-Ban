@@ -47,9 +47,7 @@
 				}
 			])
 			stage = new createjs.Stage("Canvas")
-			stage.addEventListener("stagemousedown", function(event) {
-				bat.swing(-45, ball)
-			})
+			stage.addEventListener("stagemousedown", () => bat.swing(-45, ball))
 
 			ground = stage.addChild(new Ground())
 			ground.x = 250
@@ -103,7 +101,7 @@
 		}
 
 		function handleTick(event) {
-			if (!pitcher.pitchingReady || scorer.remainingBall === 0) return 0
+			if (!pitcher.pitchingReady || scorer.remainingBall === 0) return
 			pitcher.pitching(250, 250, 250, 600)
 			scorer.remainingBall = scorer.remainingBall - 1
 		}

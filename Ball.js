@@ -32,12 +32,8 @@ class Ball extends createjs.Container {
         x: endX,
         y: endY
       }, 1000)
-      .call(() => {
-        this.isMoving = false
-      })
-      .call(() => {
-        scorer.evaluateFly(this.x, this.y)
-      })
+      .call(() => this.isMoving = false)
+      .call(() => scorer.evaluateFly(this.x, this.y))
     createjs.Ticker.setFPS(60)
   }
 
@@ -54,7 +50,7 @@ class Ball extends createjs.Container {
       if (this.flyEnergy < 0.1 ||
         gp.x > stage.canvas.width || gp.x < 0 ||
         gp.y > stage.canvas.height || gp.y < 0) {
-        if (this.flyEnergy === 0) return 0
+        if (this.flyEnergy === 0) return
 
         this.flyEnergy = 0
         this.visible = false

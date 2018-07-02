@@ -26,7 +26,7 @@ class Pitcher extends createjs.Container {
   }
 
   get pitchingReady() {
-    return (!this.bat.isMoving && !this.ball.isMoving && !this.isSetUp)
+    return !this.bat.isMoving && !this.ball.isMoving && !this.isSetUp
   }
 
   pitching(startX, startY, endX, endY) {

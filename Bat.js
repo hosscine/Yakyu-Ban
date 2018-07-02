@@ -8,7 +8,7 @@ class Bat extends createjs.Container {
     this.hitBox
     this.isMoving = false
     this.swingPower = 5
-    this.hardness = 5 // default = 5
+    this.difficulty = DIFFICULTY_EASY // default = 5
 
     this.setup()
   }
@@ -32,7 +32,7 @@ class Bat extends createjs.Container {
   }
 
   swing(rotation) {
-    if (this.isMoving) return 0
+    if (this.isMoving) return
     this.isMoving = true
     let tween = createjs.Tween.get(this)
     tween.to({
@@ -42,19 +42,17 @@ class Bat extends createjs.Container {
       .to({
         rotation: this.defaultRotation
       }, 500)
-      .call(() => {
-        this.isMoving = false
-      })
+      .call(() => this.isMoving = false)
     createjs.Ticker.setFPS(60)
 
     let handleChange = (event) => {
       let point = this.targetBall.localToLocal(0, 0, this.hitBox)
       if (!this.hitBox.hitTest(point.x, point.y) ||
-        this.targetBall.moveEnergy > 0) return 0
+        this.targetBall.moveEnergy > 0) return
 
       let flyToward = new createjs.Point(
-        Math.sin(this.rotation / 360 * Math.PI * this.hardness),
-        -Math.cos(this.rotation / 360 * Math.PI * this.hardness)
+        Math.sin(this.rotation / 360 * Math.PI * this.difficulty),
+        -Math.cos(this.rotation / 360 * Math.PI * this.difficulty)
       )
       let flyForce = this.swingPower
 

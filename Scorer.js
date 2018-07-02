@@ -1,3 +1,6 @@
+const DIFFICULTY_EASY = 5
+const DIFFICULTY_HARD = 8
+
 class Scorer extends createjs.Container {
   constructor() {
     super()
@@ -49,21 +52,19 @@ class Scorer extends createjs.Container {
     this.modeChangeText.y = -150
     this.modeChangeText.cursor = "pointer"
     this.modeChangeText.addEventListener("click", () => {
-      if (bat.hardness === 5) {
-        bat.hardness = 8
+      if (bat.difficulty === DIFFICULTY_EASY) {
+        bat.difficulty = DIFFICULTY_HARD
         this.modeChangeText.x = -250
         this.modeChangeText.text = "イージーモード"
         this.modeChangeText.color = "#4fdaed"
       } else {
-        bat.hardness = 5
+        bat.difficulty = DIFFICULTY_EASY
         this.modeChangeText.x = -230
         this.modeChangeText.text = "ハードモード"
         this.modeChangeText.color = "red"
       }
       this.restart()
     })
-
-
   }
 
   get score() {
@@ -87,10 +88,8 @@ class Scorer extends createjs.Container {
   }
 
   evaluateFly(x, y) {
-    if (Math.abs(x - ground.x) < Math.abs(y - ground.y) &&
-      y < ground.y) {
+    if (Math.abs(x - ground.x) < Math.abs(y - ground.y) && y < ground.y)
       this.score = this.score + 1
-    }
     if (this.remainingBall === 0) this.gameEnd()
   }
 
@@ -102,7 +101,8 @@ class Scorer extends createjs.Container {
     }
     this.shadow.visible = true
     this.restartText.visible = true
-    if (bat.hardness !== 5 || this.score > 8) this.modeChangeText.visible = true
+    if (bat.difficulty !== DIFFICULTY_EASY || this.score > 8)
+      this.modeChangeText.visible = true
     else this.modeChangeText.visible = false
   }
 
